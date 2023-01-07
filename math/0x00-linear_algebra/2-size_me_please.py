@@ -1,5 +1,9 @@
 #!/usr/bin/env python3
+"""Contains matrix shape function and a main test"""
+
+
 def matrix_shape(matrix):
+    """Recursively finds the shape of a matrix"""
     if type(matrix) == list:
         return [len(matrix)] + matrix_shape(matrix[0])
     else:
