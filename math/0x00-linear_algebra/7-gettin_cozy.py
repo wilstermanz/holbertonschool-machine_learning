@@ -20,7 +20,8 @@ def cat_matrices2D(mat1, mat2, axis=0):
             mat3.append(row.copy())
         for i in range(len(mat3)):
             for value in mat2[i]:
-                mat3[i].append(value)
+                mat3[i].append(value.copy())
+
     return mat3
 
 
