@@ -15,8 +15,7 @@ def cat_matrices2D(mat1, mat2, axis=0):
 
     if axis == 1:
         for i in range(len(mat1)):
-            for value in mat2[i]:
-                mat3.append(mat1[i].copy() + mat2[i].copy())
+            mat3.append(mat1[i].copy() + mat2[i].copy())
 
     return mat3
 
