@@ -1,6 +1,5 @@
 #!/usr/bin/env python3
 """Contains np_elementwise()"""
-import numpy as np
 
 
 def np_transpose(mat1, mat2):
