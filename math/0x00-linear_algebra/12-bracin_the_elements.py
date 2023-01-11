@@ -2,10 +2,10 @@
 """Contains np_elementwise()"""
 
 
-def np_transpose(mat1, mat2):
+def np_elementwise(mat1, mat2):
     """
     Performs element-wise addition,
     subtraction, multiplication, and division
     """
-    return (mat1 + mat2, mat1 - mat2,
-            mat1 * mat2, mat1 / mat2)
+    return (np.add(mat1, mat2), np.subtract(mat1, mat2),
+            np.multiply(mat1, mat2), np.divide(mat1, mat2))
