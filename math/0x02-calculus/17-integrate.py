@@ -8,7 +8,6 @@ def poly_integral(poly, C=0):
         return None
     coefficients = [C, *poly]
     for i in range(1, len(poly) + 1):
-        print(f"{coefficients[i]} / {i}")
         coefficients[i] /= i
     return coefficients
 
