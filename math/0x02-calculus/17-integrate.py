@@ -9,6 +9,8 @@ def poly_integral(poly, C=0):
     coefficients = [C, *poly]
     for i in range(1, len(poly) + 1):
         coefficients[i] /= i
+        if coefficients[i].is_integer():
+            coefficients[i] = int(coefficients[i])
     return coefficients
 
 
