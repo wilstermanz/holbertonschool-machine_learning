@@ -3,14 +3,17 @@
 
 
 def poly_derivative(poly):
-    if len(poly) > 1:
-        derivatives = poly[1:]
-        for index in range(1, len(derivatives)):
-            derivatives[index] *= index + 1
-        return derivatives
-    elif len(poly) == 1:
-        return [0]
-    else:
+    try:
+        if len(poly) > 1:
+            derivatives = poly[1:]
+            for index in range(1, len(derivatives)):
+                derivatives[index] *= index + 1
+            return derivatives
+        elif len(poly) == 1:
+            return [0]
+        else:
+            return None
+    except Exception:
         return None
 
 
