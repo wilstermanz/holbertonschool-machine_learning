@@ -3,6 +3,7 @@
 
 
 def poly_derivative(poly):
+    """calculates the derivative of a polynomial"""
     try:
         if len(poly) > 1:
             derivatives = poly[1:]
@@ -15,7 +16,6 @@ def poly_derivative(poly):
             return None
     except Exception:
         return None
-
 
 
 if __name__ == "__main__":
