@@ -3,7 +3,7 @@
 
 
 def summation_i_squared(n):
-    """uses recursion to return sigma i^2 as i goes to n"""
+    """return sigma i^2 as i goes to n"""
     if n < 1:
         return None
     return sum(map(lambda x: x**2, range(1, n + 1)))
