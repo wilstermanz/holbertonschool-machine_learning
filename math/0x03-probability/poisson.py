@@ -9,7 +9,7 @@ class Poisson:
         """Intializes Poisson class"""
         if data is None:
             if lambtha <= 0:
-                raise ValueError("ambtha must be a positive value")
+                raise ValueError("lambtha must be a positive value")
             self.lambtha = float(lambtha)
         else:
             if type(data) is not list:
