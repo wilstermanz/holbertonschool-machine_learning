@@ -36,7 +36,7 @@ class Poisson:
         if k <= 0:
             return 0
         cdf = 0
-        for x in range(1, k + 1):
+        for x in range(0, k + 1):
             xFact = 1
             for i in range(1, x + 1):
                 xFact *= i
