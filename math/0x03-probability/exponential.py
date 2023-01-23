@@ -16,7 +16,7 @@ class Exponential:
                 raise TypeError("data must be a list")
             if len(data) < 2:
                 raise ValueError("data must contain multiple values")
-            self.lambtha = sum(data) / len(data)
+            self.lambtha = 1 / (sum(data) / len(data))
 
     # def pdf(self, k):
     #     """Calculates PMF for given number of successes"""
