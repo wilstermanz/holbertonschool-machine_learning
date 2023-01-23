@@ -25,7 +25,6 @@ class Exponential:
             return 0
         return self.lambtha * (e ** (-self.lambtha * k))
 
-
     # def cdf(self, k):
     #     """calculates the CDF for given number of successes"""
     #     pass
