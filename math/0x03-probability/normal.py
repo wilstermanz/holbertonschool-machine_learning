@@ -36,9 +36,9 @@ class Normal:
         return (1 / (self.stddev * ((2 * pi) ** .5))) * \
             (e ** (-.5 * (((x - self.mean) / self.stddev) ** 2)))
 
-    # def cdf(self, k):
-    #     """calculates the CDF for given time period"""
-    #     e = 2.7182818285
-    #     if k < 0:
-    #         return 0
-    #     return 1 - (e ** (-self.lambtha * k))
+    def cdf(self, x):
+        """calculates the CDF for given x-value"""
+        def erf(x):
+            return 2 / (pi ** .5) * \
+                (x - (x**3 / 3) + (x**5 / 10) - (x**7 / 42) + (x**9 / 216))
+        return .5 * (1 + erf((x - self.mean) / (self.stddev * 2**.5)))
