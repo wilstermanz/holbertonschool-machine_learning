@@ -18,9 +18,10 @@ class Exponential:
                 raise ValueError("data must contain multiple values")
             self.lambtha = 1 / (sum(data) / len(data))
 
-    # def pdf(self, k):
-    #     """Calculates PMF for given number of successes"""
-    #     pass
+    def pdf(self, k):
+        """Calculates PDF for given time period"""
+        e = 2.7182818285
+        return self.lambtha * (e ** (-self.lambtha * k))
 
     # def cdf(self, k):
     #     """calculates the CDF for given number of successes"""
