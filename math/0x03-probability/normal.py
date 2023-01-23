@@ -6,7 +6,6 @@ pi = 3.1415926536
 
 class Normal:
     """class to represent a normal distribution"""
-    
 
     def __init__(self, data=None, mean=0., stddev=1.):
         """Intializes Exponential class by setting data annd lambtha"""
