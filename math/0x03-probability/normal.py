@@ -1,9 +1,12 @@
 #!/usr/bin/env python3
 """Tasks 6-9 - Normal distribution"""
+e = 2.7182818285
+pi = 3.1415926536
 
 
 class Normal:
     """class to represent a normal distribution"""
+    
 
     def __init__(self, data=None, mean=0., stddev=1.):
         """Intializes Exponential class by setting data annd lambtha"""
@@ -29,12 +32,10 @@ class Normal:
         """Calculates the x-value of a given z-score"""
         return z * self.stddev + self.mean
 
-    # def pdf(self, k):
-    #     """Calculates PDF for given time period"""
-    #     e = 2.7182818285
-    #     if k < 0:
-    #         return 0
-    #     return self.lambtha * (e ** (-self.lambtha * k))
+    def pdf(self, x):
+        """Calculates PDF for given x-value"""
+        return (1 / (self.stddev * ((2 * pi) ** .5))) * \
+            (e ** (-.5 * (((x - self.mean) / self.stddev) ** 2)))
 
     # def cdf(self, k):
     #     """calculates the CDF for given time period"""
