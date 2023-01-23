@@ -19,9 +19,9 @@ class Normal:
                 raise TypeError("data must be a list")
             if len(data) < 2:
                 raise ValueError("data must contain multiple values")
-            self.mean = sum(data) / len(data)
-            self.stddev = (sum(list(map(lambda x: (x - self.mean) ** 2,
-                                        data))) / len(data)) ** .5
+            self.mean = float(sum(data) / len(data))
+            self.stddev = float((sum(list(map(lambda x: (x - self.mean) ** 2,
+                                              data))) / len(data)) ** .5)
 
     def z_score(self, x):
         """Calculates the z-score of a given x-value"""
