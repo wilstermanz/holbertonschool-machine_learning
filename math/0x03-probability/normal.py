@@ -19,7 +19,15 @@ class Normal:
                 raise ValueError("data must contain multiple values")
             self.mean = sum(data) / len(data)
             self.stddev = (sum(list(map(lambda x: (x - self.mean) ** 2,
-                                        data))) / len(data)) ** (1/2)
+                                        data))) / len(data)) ** .5
+
+    def z_score(self, x):
+        """Calculates the z-score of a given x-value"""
+        return (x - self.mean) / self.stddev
+
+    def x_value(self, z):
+        """Calculates the x-value of a given z-score"""
+        return z * self.stddev + self.mean
 
     # def pdf(self, k):
     #     """Calculates PDF for given time period"""
