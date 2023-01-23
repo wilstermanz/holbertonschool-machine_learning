@@ -21,7 +21,10 @@ class Exponential:
     def pdf(self, k):
         """Calculates PDF for given time period"""
         e = 2.7182818285
+        if k < 0:
+            return 0
         return self.lambtha * (e ** (-self.lambtha * k))
+
 
     # def cdf(self, k):
     #     """calculates the CDF for given number of successes"""
