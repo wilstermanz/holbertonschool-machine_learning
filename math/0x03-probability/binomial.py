@@ -44,6 +44,4 @@ class Binomial:
             return x * factorial(x - 1)
 
         binCoef = factorial(self.n)/(factorial(k) * factorial(self.n - k))
-        a = self.p ** k
-        b = (1 - self.p) ** (self.n - k)
-        return binCoef * a * b
+        return binCoef * (self.p ** k) * ((1 - self.p) ** (self.n - k))
