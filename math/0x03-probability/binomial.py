@@ -45,3 +45,10 @@ class Binomial:
 
         binCoef = factorial(self.n)/(factorial(k) * factorial(self.n - k))
         return binCoef * (self.p ** k) * ((1 - self.p) ** (self.n - k))
+
+    def cdf(self, k):
+        """Calculates the CDF for a given number of successes"""
+        k = int(k)
+        if k < 0:
+            return 0
+        return sum([self.pmf(i) for i in range(0, k + 1)])
