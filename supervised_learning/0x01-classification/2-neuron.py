@@ -33,7 +33,6 @@ class Neuron:
 
     def forward_prop(self, X):
         """Calculates the forward propagation of the neuron"""
-        e = 2.7182818285
-        n = np.matmul(self.__W, X)
-        self.__A = np.array(list(map(lambda x: 1 / (1 + e**(-x)), n)))
+        n = np.matmul(self.__W, X) + self.__b
+        self.__A = 1 / (1 + np.exp(-n))
         return self.__A
