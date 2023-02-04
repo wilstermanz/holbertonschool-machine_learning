@@ -49,10 +49,10 @@ class Neuron:
         return prediction, cost
 
     def gradient_descent(self, X, Y, A, alpha=0.05):
-      """Calculates one pass of gradient descent on the neuron"""
-      m = np.shape(Y)[1]
-      dz = A - Y
-      dW = np.matmul(dz, X.T) / m
-      db = np.sum(dz) / m
-      self.__W -= alpha * dW
-      self.__b -= alpha * db
+        """Calculates one pass of gradient descent on the neuron"""
+        m = np.shape(Y)[1]
+        dz = A - Y
+        dW = np.matmul(dz, X.T) / m
+        db = np.sum(dz) / m
+        self.__W -= alpha * dW
+        self.__b -= alpha * db
