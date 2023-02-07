@@ -71,4 +71,3 @@ class NeuralNetwork:
         """Evaluates the neural network’s predictions"""
         prediction = np.where(self.forward_prop(X)[1] >= .5, 1, 0)
         return prediction, self.cost(Y, self.__A2)
-        
