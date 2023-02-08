@@ -50,7 +50,7 @@ class DeepNeuralNetwork:
 
         for i in range(1, layers + 1):
             z = np.matmul(weights['W{}'.format(i)], cache['A{}'.format(i - 1)]
-                         ) + weights['b{}'.format(i)]
+                          ) + weights['b{}'.format(i)]
             cache['A{}'.format(i)] = 1 / (1 + np.exp(-z))
 
         return cache['A{}'.format(layers)], cache
