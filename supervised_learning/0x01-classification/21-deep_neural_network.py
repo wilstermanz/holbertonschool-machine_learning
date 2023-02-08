@@ -73,9 +73,9 @@ class DeepNeuralNetwork:
             if layer == output_layer:
                 dz = cache["A{}".format(layer)] - Y
             if layer < output_layer:
-                dz = np.matmul(weights["W{}".format(layer + 1)].T, dz) * (
-                    cache["A{}".format(layer)] * (
-                        1 - cache["A{}".format(layer)]))
+                da = np.matmul(weights["W{}".format(layer + 1)].T, dz)
+                dz = da * (cache["A{}".format(layer)] * (
+                    1 - cache["A{}".format(layer)]))
             dW = np.matmul(dz, cache["A{}".format(layer - 1)].T) / m
             db = np.sum(dz, axis=1, keepdims=True) / m
             weights["W{}".format(layer)] -= alpha * dW
