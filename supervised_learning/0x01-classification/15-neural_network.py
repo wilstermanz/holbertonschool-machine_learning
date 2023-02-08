@@ -1,7 +1,7 @@
 #!/usr/bin/env python3
 """Task 13 - NeuralNetwork Gradient Descent """
 import numpy as np
-
+import matplotlib.pyplot as plt
 
 class NeuralNetwork:
     """defines a neural network with one hidden layer
@@ -109,8 +109,11 @@ class NeuralNetwork:
                 print("Cost after {} iterations: {}".format(
                     i, self.cost(Y, self.__A2)))
             self.gradient_descent(X, Y, A[0], A[1], alpha)
+            if graph and i % step == 0:
+                graph_data['x'].append(i)
+                graph_data['y'].append(self.cost(Y, A[1]))
         if verbose:
-            print("Cost after {} iterations: {}".format(iterations, self.cost(Y, A)))          
+            print("Cost after {} iterations: {}".format(iterations, self.cost(Y, self.__A2)))          
         if graph:
             plt.plot(graph_data['x'], graph_data['y'], c='blue')
             plt.title('Training Cost')
