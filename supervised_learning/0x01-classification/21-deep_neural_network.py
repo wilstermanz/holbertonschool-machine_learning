@@ -67,16 +67,17 @@ class DeepNeuralNetwork:
 
     def gradient_descent(self, Y, cache, alpha=0.05):
         """Evaluates the neural network’s predictions"""
-        input_layer, output_layer, weights = 1, self.__L, self.__weights
-        m = np.shape(Y)[1]
-        for layer in range(output_layer, 0, -1):
-            if layer == output_layer:
-                dz = cache["A{}".format(layer)] - Y
-            if layer < output_layer:
-                da = np.matmul(weights["W{}".format(layer + 1)].T, dz)
-                dz = da * (cache["A{}".format(layer)] * (
-                    1 - cache["A{}".format(layer)]))
-            dW = np.matmul(dz, cache["A{}".format(layer - 1)].T) / m
+        m = Y.shape[1]
+        for layer in range(self.L, 0, -1):
+            if layer == self.L:
+                dz = (cache["A{}".format(layer)] - Y)
+            else:
+                a = cache["A{}".format(layer)]
+                dz = da * a * (1 - a)
+            dw = np.matmul(dz, cache["A{}".format(layer-1)].T) / m
             db = np.sum(dz, axis=1, keepdims=True) / m
-            weights["W{}".format(layer)] -= alpha * dW
-            weights["b{}".format(layer)] -= alpha * db
+            da = np.matmul(self.weights["W{}".format(layer)].T, dz)
+            new_w = self.weights["W{}".format(layer)] - (alpha * dw)
+            new_b = self.weights["b{}".format(layer)] - (alpha * db)
+            self.__weights["W{}".format(layer)] = new_w
+            self.__weights["b{}".format(layer)] = new_b
