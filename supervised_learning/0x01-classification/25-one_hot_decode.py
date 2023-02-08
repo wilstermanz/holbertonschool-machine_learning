@@ -8,6 +8,8 @@ def one_hot_decode(one_hot):
     try:
         if type(one_hot) is not np.ndarray:
             raise TypeError
+        if type(one_hot[0, 0]) is np.ndarray:
+            raise ValueError
         return np.argmax(one_hot.T, axis=1)
     except Exception:
         return None
