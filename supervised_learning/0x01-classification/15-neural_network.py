@@ -3,6 +3,7 @@
 import numpy as np
 import matplotlib.pyplot as plt
 
+
 class NeuralNetwork:
     """defines a neural network with one hidden layer
     performing binary classification"""
@@ -87,7 +88,7 @@ class NeuralNetwork:
         self.__b2 -= alpha * db2
 
     def train(self, X, Y, iterations=5000, alpha=0.05,
-                  verbose=True, graph=True, step=100):
+              verbose=True, graph=True, step=100):
         """Trains the neural network"""
         if type(iterations) is not int:
             raise TypeError("iterations must be an integer")
@@ -113,7 +114,8 @@ class NeuralNetwork:
                 graph_data['x'].append(i)
                 graph_data['y'].append(self.cost(Y, A[1]))
         if verbose:
-            print("Cost after {} iterations: {}".format(iterations, self.cost(Y, self.__A2)))          
+            print("Cost after {} iterations: {}"
+                  .format(iterations, self.cost(Y, self.__A2)))
         if graph:
             plt.plot(graph_data['x'], graph_data['y'], c='blue')
             plt.title('Training Cost')

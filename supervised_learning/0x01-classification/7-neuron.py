@@ -79,10 +79,11 @@ class Neuron:
             A = self.forward_prop(X)
             self.gradient_descent(X, Y, A, alpha)
             if verbose is True and i % step == 0:
-                print("Cost after {} iterations: {}".format(i, self.cost(Y, A)))
+                print("Cost after {} iterations: {}"
+                      .format(i, self.cost(Y, A)))
             if graph is True and i % step == 0:
                 graph_data['x'].append(i)
-                graph_data['y'].append(self.cost(Y, A))          
+                graph_data['y'].append(self.cost(Y, A))
         if graph is True:
             plt.plot(graph_data['x'], graph_data['y'], c='blue')
             plt.title('Training Cost')

@@ -111,7 +111,7 @@ class DeepNeuralNetwork:
         if verbose:
             print("Cost after {} iterations: {}".format(
                 iterations, self.cost(
-                    Y, self.__cache["A{}".format(self.__L)])))          
+                    Y, self.__cache["A{}".format(self.__L)])))
         if graph:
             plt.plot(graph_data['x'], graph_data['y'], c='blue')
             plt.title('Training Cost')
