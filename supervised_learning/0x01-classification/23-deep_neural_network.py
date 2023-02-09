@@ -2,6 +2,7 @@
 """Tasks 16 - 23 for Deep Neural Network"""
 import numpy as np
 import matplotlib.pyplot as plt
+import pickle
 
 
 class DeepNeuralNetwork:
@@ -108,10 +109,14 @@ class DeepNeuralNetwork:
             if graph and i % step == 0:
                 graph_data['x'].append(i)
                 graph_data['y'].append(self.cost(Y, A[0]))
+        if graph:
+            graph_data['x'].append(iterations)
+            graph_data['y'].append(
+                self.cost(Y, self.__cache["A{}".format(self.__L)]))
         if verbose:
             print("Cost after {} iterations: {}".format(
                 iterations, self.cost(
-                    Y, self.__cache["A{}".format(self.__L)])))
+                    Y, self.__cache["A{}".format(self.__L)])))          
         if graph:
             plt.plot(graph_data['x'], graph_data['y'], c='blue')
             plt.title('Training Cost')
