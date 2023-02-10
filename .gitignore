@@ -131,3 +131,5 @@ dmypy.json
 .idea/
 *.npz
 /data
+.DS_Store
+supervised_learning/.DS_Store
