@@ -10,7 +10,6 @@ create_train_op = __import__('5-create_train_op').create_train_op
 forward_prop = __import__('2-forward_prop').forward_prop
 
 
-
 def train(X_train, Y_train, X_valid, Y_valid, layer_sizes, activations, alpha,
           iterations, save_path="/tmp/model.ckpt"):
     """builds, trains, and saves a neural network classifier"""
@@ -36,10 +35,10 @@ def train(X_train, Y_train, X_valid, Y_valid, layer_sizes, activations, alpha,
             valid_cost, valid_accuracy = sess.run(
                 (loss, accuracy), feed_dict={x: X_valid, y: Y_valid})
             print("After {} iterations:\n".format(i) +
-                "\tTraining Cost: {}\n".format(training_cost) +
-                "\tTraining Accuracy: {}\n".format(training_accuracy) +
-                "\tValidation Cost: {}\n".format(valid_cost) +
-                "\tValidation Accuracy: {}".format(valid_accuracy))
+                  "\tTraining Cost: {}\n".format(training_cost) +
+                  "\tTraining Accuracy: {}\n".format(training_accuracy) +
+                  "\tValidation Cost: {}\n".format(valid_cost) +
+                  "\tValidation Accuracy: {}".format(valid_accuracy))
         sess.run((train_op), feed_dict={x: X_train, y: Y_train})
 
     training_cost, training_accuracy = sess.run(
@@ -47,10 +46,9 @@ def train(X_train, Y_train, X_valid, Y_valid, layer_sizes, activations, alpha,
     valid_cost, valid_accuracy = sess.run(
         (loss, accuracy), feed_dict={x: X_valid, y: Y_valid})
     print("After {} iterations:\n".format(iterations) +
-        "\tTraining Cost: {}\n".format(training_cost) +
-        "\tTraining Accuracy: {}\n".format(training_accuracy) +
-        "\tValidation Cost: {}\n".format(valid_cost) +
-        "\tValidation Accuracy: {}".format(valid_accuracy))
-    
-    return tf.Saver().save(sess, save_path)
-    
+          "\tTraining Cost: {}\n".format(training_cost) +
+          "\tTraining Accuracy: {}\n".format(training_accuracy) +
+          "\tValidation Cost: {}\n".format(valid_cost) +
+          "\tValidation Accuracy: {}".format(valid_accuracy))
+
+    return tf.train.Saver().save(sess, save_path)
