@@ -49,18 +49,17 @@ def train_mini_batch(X_train, Y_train, X_valid, Y_valid,
                                                              y: Y_valid})
             print_epoch(epoch, train_cost, train_accuracy,
                         valid_cost, valid_accuracy)
-            if (epoch < epochs):
+            if epoch < epochs:
                 X_shuffled, Y_shuffled = shuffle_data(X_train, Y_train)
                 for step in range(num_batches):
-                    if step < (num_batches - 1):
-                        X_batch = X_shuffled[step * batch_size:
+                    X_batch = X_shuffled[step * batch_size:
                                             (step + 1) * batch_size]
-                        Y_batch = Y_shuffled[step * batch_size:
+                    Y_batch = Y_shuffled[step * batch_size:
                                             (step + 1) * batch_size]
-                        sess.run(
-                            train_op,
-                            feed_dict={x: X_batch, y: Y_batch}
-                            )
+                    sess.run(
+                        train_op,
+                        feed_dict={x: X_batch, y: Y_batch}
+                        )
                     if step > 0 and (step + 1) % 100 == 0:
                         step_cost, step_accuracy = sess.run(
                             (loss, accuracy),
