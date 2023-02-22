@@ -9,4 +9,4 @@ def create_momentum_op(loss, alpha, beta1):
     descent with momentum optimization algorithm
     """
     optimizer = tf.train.MomentumOptimizer(alpha, beta1)
-    return optimizer.minimize(loss) 
+    return optimizer.minimize(loss)
