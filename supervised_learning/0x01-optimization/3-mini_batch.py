@@ -53,9 +53,9 @@ def train_mini_batch(X_train, Y_train, X_valid, Y_valid,
                 X_shuffled, Y_shuffled = shuffle_data(X_train, Y_train)
                 for step in range(num_batches):
                     X_batch = X_shuffled[step * batch_size:
-                                            (step + 1) * batch_size]
+                                         (step + 1) * batch_size]
                     Y_batch = Y_shuffled[step * batch_size:
-                                            (step + 1) * batch_size]
+                                         (step + 1) * batch_size]
                     sess.run(
                         train_op,
                         feed_dict={x: X_batch, y: Y_batch}
