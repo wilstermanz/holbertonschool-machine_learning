@@ -1,6 +1,7 @@
 #!/usr/bin/env python3
 """Task 3"""
-import tensorflow as tf
+import tensorflow.compat.v1 as tf
+tf.disable_v2_behavior()
 shuffle_data = __import__('2-shuffle_data').shuffle_data
 
 
@@ -77,5 +78,5 @@ def train_mini_batch(X_train, Y_train, X_valid, Y_valid,
                     print_step(step, step_cost, step_accuracy)
         print_epoch(epochs, train_cost, train_accuracy,
                     valid_cost, valid_accuracy)
-    saver = tf.train.Saver()
-    return saver.save(sess, save_path)
+        saver = tf.train.Saver()
+        return saver.save(sess, save_path)
