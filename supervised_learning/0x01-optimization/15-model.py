@@ -52,17 +52,17 @@ def print_epoch(epochs, train_cost, train_accuracy,
                 valid_cost, valid_accuracy):
     """Prints epoch info"""
     print("After {} epochs:\n".format(epochs) +
-          "\tTraining Cost: {}\n".format(train_cost) +
-          "\tTraining Accuracy: {}\n".format(train_accuracy) +
-          "\tValidation Cost: {}\n".format(valid_cost) +
-          "\tValidation Accuracy: {}".format(valid_accuracy))
+            "\tTraining Cost: {}\n".format(train_cost) +
+            "\tTraining Accuracy: {}\n".format(train_accuracy) +
+            "\tValidation Cost: {}\n".format(valid_cost) +
+            "\tValidation Accuracy: {}".format(valid_accuracy))
 
 
 def print_step(step_number, step_cost, step_accuracy):
     """Prints step info"""
     print("\tStep {}:\n".format(step_number) +
-          "\t\tCost: {}\n".format(step_cost) +
-          "\t\tAccuracy: {}".format(step_accuracy))
+            "\t\tCost: {}\n".format(step_cost) +
+            "\t\tAccuracy: {}".format(step_accuracy))
 
 
 def calculate_accuracy(y, y_pred):
@@ -87,6 +87,15 @@ def forward_prop(x, layer_sizes=[], activations=[]):
     return a
 
 
+def learning_rate_decay(alpha, decay_rate, global_step, decay_step):
+    """
+    creates a learning rate decay operation in tensorflow
+    using inverse time decay
+    """
+    return tf.train.inverse_time_decay(alpha, global_step,
+                                        decay_step, decay_rate, True)
+
+
 def model(Data_train, Data_valid, layers, activations, alpha=0.001,
           beta1=0.9, beta2=0.999, epsilon=1e-8, decay_rate=1,
           batch_size=32, epochs=5, save_path='/tmp/model.ckpt'):
@@ -95,7 +104,6 @@ def model(Data_train, Data_valid, layers, activations, alpha=0.001,
     Adam optimization, mini-batch gradient descent, learning rate decay,
     and batch normalization
     """
-
     with tf.Session() as sess:
         X_train, Y_train = Data_train
         X_valid, Y_valid = Data_valid
