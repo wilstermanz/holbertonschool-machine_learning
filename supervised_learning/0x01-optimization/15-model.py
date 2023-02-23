@@ -105,7 +105,10 @@ def model(Data_train, Data_valid, layers, activations, alpha=0.001,
         accuracy = calculate_accuracy(y, y_pred)
         loss = calculate_loss(y, y_pred)
         global_step = tf.Variable(0, trainable=False)
-        alpha = learning_rate_decay(alpha, decay_rate, global_step, 1)
+        decay_step = (len(X_train) // batch_size)
+        if decay_step % batch_size != 0:
+            decay_step += 1
+        alpha = learning_rate_decay(alpha, decay_rate, global_step, decay_step)
         train_op = tf.train.AdamOptimizer(
             alpha, beta2, epsilon=epsilon).minimize(
                 loss, global_step=global_step)
@@ -115,9 +118,6 @@ def model(Data_train, Data_valid, layers, activations, alpha=0.001,
         tf.add_to_collection('loss', loss)
         tf.add_to_collection('accuracy', accuracy)
         tf.add_to_collection('train_op', train_op)
-        num_batches = (len(X_train) // batch_size)
-        if num_batches % batch_size != 0:
-            num_batches += 1
         init = tf.global_variables_initializer()
         sess.run(init)
         for epoch in range(epochs + 1):
@@ -131,7 +131,8 @@ def model(Data_train, Data_valid, layers, activations, alpha=0.001,
                         valid_cost, valid_accuracy)
             if epoch < epochs:
                 X_shuffled, Y_shuffled = shuffle_data(X_train, Y_train)
-                for step in range(num_batches):
+                for step in range(decay_step):
+                    sess.run(alpha)
                     X_batch = X_shuffled[step * batch_size:
                                          (step + 1) * batch_size]
                     Y_batch = Y_shuffled[step * batch_size:
