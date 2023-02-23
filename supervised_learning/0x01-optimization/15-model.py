@@ -5,17 +5,9 @@ import tensorflow as tf
 
 
 def shuffle_data(X, Y):
+    """shuffles the data points in two matrices the same way"""
     p = np.random.permutation(X.shape[0])
     return X[p], Y[p]
-
-
-def create_Adam_op(loss, alpha, beta1, beta2, epsilon):
-    """
-    creates the training operation for a neural network in tensorflow
-    using the Adam optimization algorithm
-    """
-    optimizer = tf.train.AdamOptimizer(alpha, beta2, epsilon=epsilon)
-    return optimizer.minimize(loss)
 
 
 def learning_rate_decay(alpha, decay_rate, global_step, decay_step):
@@ -104,27 +96,30 @@ def model(Data_train, Data_valid, layers, activations, alpha=0.001,
     and batch normalization
     """
 
-    X_train, Y_train = Data_train
-    X_valid, Y_valid = Data_valid
-    x, y = create_placeholders(Data_train[0].shape[1],
-                               Data_train[1].shape[1])
-    y_pred = forward_prop(x, layers, activations)
-    accuracy = calculate_accuracy(y, y_pred)
-    loss = calculate_loss(y, y_pred)
-    train_op = create_Adam_op(loss, alpha, beta1, beta2, epsilon)
-    tf.add_to_collection('x', x)
-    tf.add_to_collection('y', y)
-    tf.add_to_collection('y_pred', y_pred)
-    tf.add_to_collection('loss', loss)
-    tf.add_to_collection('accuracy', accuracy)
-    tf.add_to_collection('train_op', train_op)
-
     with tf.Session() as sess:
-        init = tf.global_variables_initializer()
-        sess.run(init)
+        X_train, Y_train = Data_train
+        X_valid, Y_valid = Data_valid
+        x, y = create_placeholders(X_train.shape[1],
+                                   Y_train.shape[1])
+        y_pred = forward_prop(x, layers, activations)
+        accuracy = calculate_accuracy(y, y_pred)
+        loss = calculate_loss(y, y_pred)
+        global_step = tf.Variable(0, trainable=False)
+        alpha = learning_rate_decay(alpha, decay_rate, global_step, 1)
+        train_op = tf.train.AdamOptimizer(
+            alpha, beta2, epsilon=epsilon).minimize(
+                loss, global_step=global_step)
+        tf.add_to_collection('x', x)
+        tf.add_to_collection('y', y)
+        tf.add_to_collection('y_pred', y_pred)
+        tf.add_to_collection('loss', loss)
+        tf.add_to_collection('accuracy', accuracy)
+        tf.add_to_collection('train_op', train_op)
         num_batches = (len(X_train) // batch_size)
         if num_batches % batch_size != 0:
             num_batches += 1
+        init = tf.global_variables_initializer()
+        sess.run(init)
         for epoch in range(epochs + 1):
             train_cost, train_accuracy = sess.run((loss, accuracy),
                                                   feed_dict={x: X_train,
