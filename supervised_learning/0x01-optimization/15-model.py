@@ -1,8 +1,7 @@
 #!/usr/bin/env python3
 """Task 15"""
 import numpy as np
-import tensorflow.compat.v1 as tf
-tf.disable_v2_behavior()
+import tensorflow as tf
 
 
 def shuffle_data(X, Y):
@@ -36,8 +35,8 @@ def create_batch_norm_layer(prev, n, activation):
     layer = tf.layers.dense(
         prev,
         n,
-        kernel_initializer=tf.keras.initializers.VarianceScaling(
-            mode="fan_avg"),
+        kernel_initializer=tf.contrib.layers.variance_scaling_initializer(
+            mode="FAN_AVG"),
     )
     mean, variance = tf.nn.moments(layer, 0)
     gamma = tf.Variable(tf.ones(n), True)
