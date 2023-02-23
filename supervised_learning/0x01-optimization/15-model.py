@@ -1,7 +1,13 @@
 #!/usr/bin/env python3
 """Task 15"""
 import numpy as np
-import tensorflow as tf
+import tensorflow.compat.v1 as tf
+tf.disable_v2_behavior()
+
+
+def shuffle_data(X, Y):
+    p = np.random.permutation(X.shape[0])
+    return X[p], Y[p]
 
 
 def create_Adam_op(loss, alpha, beta1, beta2, epsilon):
@@ -30,8 +36,8 @@ def create_batch_norm_layer(prev, n, activation):
     layer = tf.layers.dense(
         prev,
         n,
-        kernel_initializer=tf.contrib.layers.variance_scaling_initializer(
-            mode="FAN_AVG"),
+        kernel_initializer=tf.keras.initializers.VarianceScaling(
+            mode="fan_avg"),
     )
     mean, variance = tf.nn.moments(layer, 0)
     gamma = tf.Variable(tf.ones(n), True)
