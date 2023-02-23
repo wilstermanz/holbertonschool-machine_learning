@@ -52,17 +52,17 @@ def print_epoch(epochs, train_cost, train_accuracy,
                 valid_cost, valid_accuracy):
     """Prints epoch info"""
     print("After {} epochs:\n".format(epochs) +
-            "\tTraining Cost: {}\n".format(train_cost) +
-            "\tTraining Accuracy: {}\n".format(train_accuracy) +
-            "\tValidation Cost: {}\n".format(valid_cost) +
-            "\tValidation Accuracy: {}".format(valid_accuracy))
+          "\tTraining Cost: {}\n".format(train_cost) +
+          "\tTraining Accuracy: {}\n".format(train_accuracy) +
+          "\tValidation Cost: {}\n".format(valid_cost) +
+          "\tValidation Accuracy: {}".format(valid_accuracy))
 
 
 def print_step(step_number, step_cost, step_accuracy):
     """Prints step info"""
     print("\tStep {}:\n".format(step_number) +
-            "\t\tCost: {}\n".format(step_cost) +
-            "\t\tAccuracy: {}".format(step_accuracy))
+          "\t\tCost: {}\n".format(step_cost) +
+          "\t\tAccuracy: {}".format(step_accuracy))
 
 
 def calculate_accuracy(y, y_pred):
@@ -93,7 +93,7 @@ def learning_rate_decay(alpha, decay_rate, global_step, decay_step):
     using inverse time decay
     """
     return tf.train.inverse_time_decay(alpha, global_step,
-                                        decay_step, decay_rate, True)
+                                       decay_step, decay_rate, True)
 
 
 def model(Data_train, Data_valid, layers, activations, alpha=0.001,
