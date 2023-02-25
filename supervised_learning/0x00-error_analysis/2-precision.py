@@ -11,7 +11,8 @@ def precision(confusion):
       row indices represent the correct labels and column indices represent the
       predicted labels
         * classes is the number of classes
-    * Returns: a numpy.ndarray of shape (classes,) containing the precision of each class
+    * Returns: a numpy.ndarray of shape (classes,) containing the precision
+      of each class
     """
     TP = np.diag(confusion)
     sum = np.sum(confusion, axis=0)
