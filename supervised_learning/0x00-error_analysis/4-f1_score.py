@@ -1,6 +1,8 @@
 #!/usr/bin/env python3
 """Task 4"""
 import numpy as np
+sensitivity = __import__('1-sensitivity').sensitivity
+precision = __import__('2-precision').precision
 
 
 def f1_score(confusion):
@@ -14,7 +16,5 @@ def f1_score(confusion):
     * Returns: a numpy.ndarray of shape (classes,) containing the F1 score of
       each class
     """
-    TP = np.diag(confusion)
-    FP = np.sum(confusion, axis=0) - TP
-    FN = np.sum(confusion, axis=1) - TP
-    return (TP + TP) / (TP + TP + FP + FN)
+    c = confusion
+    return (2 * precision(c) * sensitivity(c))/(precision(c) + sensitivity(c))
