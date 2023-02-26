@@ -15,9 +15,9 @@ def l2_reg_create_layer(prev, n, activation, lambtha):
         * Returns: the output of the new layer
     """
     regularizer = tf.contrib.layers.l2_regularizer(lambtha)
-    initializer = tf.contrib.layers.variance_scaling_initializer(mode="FAN_AVG")
+    init = tf.contrib.layers.variance_scaling_initializer(mode="FAN_AVG")
     layer = tf.layers.Dense(n,
                             activation=activation,
-                            kernel_initializer=initializer,
+                            kernel_initializer=init,
                             kernel_regularizer=regularizer)
     return layer(prev)
