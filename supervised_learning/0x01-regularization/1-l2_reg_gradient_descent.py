@@ -24,17 +24,15 @@ def l2_reg_gradient_descent(Y, weights, cache, alpha, lambtha, L):
         * The weights and biases of the network should be updated in place
     """
     m = np.shape(Y)[1]
-    input_layer = 1
-    output_layer = L
-    for layer in range(output_layer, 0, -1):
+    for layer in range(L, 0, -1):
         a = cache["A{}".format(layer)]
         aprev = cache["A{}".format(layer - 1)]
         W = weights["W{}".format(layer)]
         b = weights["b{}".format(layer)]
-        l2 = (lambtha / m) + W
-        if layer == output_layer:
+        l2 = (lambtha / m) * W
+        if layer == L:
             dz = a - Y
-        if layer < output_layer:
+        if layer < L:
             dz = da * (1 - np.square(a))
         dW = np.matmul(dz, aprev.T) / m + l2
         db = np.sum(dz, axis=1, keepdims=True) / m
