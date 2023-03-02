@@ -20,12 +20,12 @@ def early_stopping(cost, opt_cost, threshold, patience, count):
     count += 1
     stop = False
 
+    # Check for cost within threshold
+    if  opt_cost - cost > threshold:
+        count = 0
+
     # Check for count outside of patience
     if count >= patience:
         stop = True
-
-    # Check for cost within threshold
-    if cost - opt_cost >= threshold:
-        count = 0
 
     return stop, count
