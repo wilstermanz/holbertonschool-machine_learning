@@ -22,7 +22,7 @@ def build_model(nx, layers, activations, lambtha, keep_prob):
     model = K.Sequential()
 
     # Create input layer
-    model.add(K.layers.Input(shape=(nx,)))
+    model.add(K.layers.InputLayer(input_shape=(nx,)))
 
     # Create hidden layers
     for i in range(len(layers)):
