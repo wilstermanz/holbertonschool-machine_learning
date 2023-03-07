@@ -19,7 +19,7 @@ def convolve_grayscale_padding(images, kernel, padding):
         padding is a tuple of (ph, pw)
             ph is the padding for the height of the image
             pw is the padding for the width of the image
-            the image should be padded with 0’s
+            the image should be padded with 0s
         You are only allowed to use two for loops; any other loops of any kind
           are not allowed
         Returns: a numpy.ndarray containing the convolved images
@@ -34,13 +34,13 @@ def convolve_grayscale_padding(images, kernel, padding):
 
     # pad images
     images_padded = np.pad(images, ((0, 0),
-                                    (ph // 2, ph // 2),
-                                    (pw // 2, pw // 2)))
+                                    (ph, ph),
+                                    (pw, pw)))
 
     # loop over output
-    for x in range(h):
-        for y in range(w):
-            output[:, x, y] = np.sum(
-                kernel * images_padded[:, x:x+kh, y:y+kw], axis=(1, 2))
+    for x in range(output.shape[2]):
+        for y in range(output.shape[1]):
+            output[:, y, x] = np.sum(
+                kernel * images_padded[:, y:y+kh, x:x+kw], axis=(1, 2))
 
     return output
