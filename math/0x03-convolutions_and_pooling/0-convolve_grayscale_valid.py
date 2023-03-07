@@ -1,11 +1,11 @@
 #!/usr/bin/env python3
-"""Task 0"""
+"""Task 1"""
 import numpy as np
 
 
-def convolve_grayscale_valid(images, kernel):
+def convolve_grayscale_same(images, kernel):
     """
-    performs a valid convolution on grayscale images:
+    performs a same convolution on grayscale images:
 
         images is a numpy.ndarray with shape (m, h, w) containing multiple
           grayscale images
@@ -16,25 +16,35 @@ def convolve_grayscale_valid(images, kernel):
           the convolution
             kh is the height of the kernel
             kw is the width of the kernel
+        if necessary, the image should be padded with 0’s
         You are only allowed to use two for loops; any other loops of any kind
           are not allowed
         Returns: a numpy.ndarray containing the convolved images
-    """
+        """
     # input dimensions
-    m, input_h, input_w = images.shape[0], images.shape[1], images.shape[2]
-    kernel_w, kernel_h = kernel.shape[0], kernel.shape[1]
+    m, h, w = images.shape
+    kh, kw = kernel.shape
 
-    # output dimensions
-    output_h = input_h - kernel_h + 1
-    output_w = input_w - kernel_w + 1
+    # calculate padding
+    pad_along_height = max((h - 1) + kh - h, 0)
+    pad_along_width = max((w - 1) + kw - w, 0)
+    pad_top = pad_along_height // 2
+    pad_bottom = pad_along_height - pad_top
+    pad_left = pad_along_width // 2
+    pad_right = pad_along_width - pad_left
 
-    # convolution output
-    output = np.zeros((m, output_h, output_w))
-
-    # loop over every pixel of the output
-    for x in range(output_h):
-        for y in range(output_w):
+    # pad images
+    images_padded = np.pad(images, ((0, 0),
+                                    (pad_top, pad_bottom),
+                                    (pad_left, pad_right)))
+    
+    # make output
+    output = np.zeros((m, h, w))
+    
+    # loop over output
+    for x in range(h):
+        for y in range(w):
             output[:, x, y] = np.sum(
-                kernel * images[:, x:x+kernel_h, y:y+kernel_w], axis=(1, 2))
-
+                kernel * images_padded[:, x:x+kh, y:y+kw], axis=(1, 2))
+    
     return output
