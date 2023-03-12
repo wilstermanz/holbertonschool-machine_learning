@@ -63,16 +63,16 @@ def conv_backward(dZ, A_prev, W, b, padding="same", stride=(1, 1)):
             for y in range(w_new):
                 for z in range(c_new):
                     dW[:, :, :, z] += np.multiply(A_prev[frame,
-                                                         y*sw:y*sw+kw,
                                                          x*sh:x*sh+kh,
+                                                         y*sw:y*sw+kw,
                                                          :],
-                                                  dZ[frame, y, x, z]
+                                                  dZ[frame, x, y, z]
                                                   )
                     dA_prev[frame,
-                            y*sw:y*sw+kw,
                             x*sh:x*sh+kh,
+                            y*sw:y*sw+kw,
                             :] += np.multiply(W[:, :, :, z],
-                                              dZ[frame, y, x, z])
+                                              dZ[frame, x, y, z])
 
     # Remove padding
     if padding == 'same':
