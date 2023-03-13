@@ -48,16 +48,16 @@ def pool_backward(dA, A_prev, kernel_shape, stride=(1, 1), mode='max'):
                         average = dA[frame, x, y, z] / kh / kw
                         dA_prev[frame,
                                 x*sh:x*sh+kh,
-                                y*sh:y*sh+kh,
+                                y*sw:y*sw+kw,
                                 z] += np.full(kernel_shape, average)
                     if mode == 'max':
                         filter = A_prev[frame,
                                         x*sh:x*sh+kh,
-                                        y*sh:y*sh+kh,
+                                        y*sw:y*sw+kw,
                                         z]
                         mask = (filter == np.max(filter))
                         dA_prev[frame,
                                 x*sh:x*sh+kh,
-                                y*sh:y*sh+kh,
+                                y*sw:y*sw+kw,
                                 z] += mask * dA[frame, x, y, z]
     return dA_prev
