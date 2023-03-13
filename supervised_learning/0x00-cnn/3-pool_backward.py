@@ -41,8 +41,8 @@ def pool_backward(dA, A_prev, kernel_shape, stride=(1, 1), mode='max'):
 
     # fill output
     for frame in range(m):
-        for x in range(w_new):
-            for y in range(h_new):
+        for x in range(h_new):
+            for y in range(w_new):
                 for z in range(c_new):
                     if mode == 'avg':
                         average = dA[frame, x, y, z] / kh / kw
