@@ -73,7 +73,7 @@ def densenet121(growth_rate=32, compression=1.0):
     pool2 = K.layers.AveragePooling2D(
         pool_size=7,
         strides=1,
-        padding='same'
+        padding='valid'
         )(db4)
 
     # output layer
