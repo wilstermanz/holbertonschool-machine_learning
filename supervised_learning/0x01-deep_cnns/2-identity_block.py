@@ -51,8 +51,7 @@ def identity_block(A_prev, filters):
         kernel_initializer=init
         )(act2)
     bn3 = K.layers.BatchNormalization(axis=3)(conv3)
-    act3 = K.layers.ReLU()(bn3)
 
-    add = K.layers.Add()([act3, A_prev])
+    add = K.layers.Add()([bn3, A_prev])
 
     return K.layers.ReLU()(add)
