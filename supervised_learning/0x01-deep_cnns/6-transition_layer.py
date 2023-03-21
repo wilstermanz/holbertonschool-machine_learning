@@ -21,8 +21,9 @@ def transition_layer(X, nb_filters, compression):
     # set init
     init = K.initializers.he_normal()
 
-    # normalization layer
+    # normalization and activation
     bn1 = K.layers.BatchNormalization(axis=3)(X)
+    relu1 = K.layers.ReLU()(bn1)
 
     # compression layer
     conv1 = K.layers.Conv2D(
@@ -31,7 +32,7 @@ def transition_layer(X, nb_filters, compression):
         strides=1,
         padding='same',
         kernel_initializer=init
-        )(bn1)
+        )(relu1)
 
     # pooling
     pool1 = K.layers.AveragePooling2D(
