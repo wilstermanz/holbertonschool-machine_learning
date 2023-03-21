@@ -37,7 +37,7 @@ def transition_layer(X, nb_filters, compression):
     # pooling
     pool1 = K.layers.AveragePooling2D(
         pool_size=2,
-        strides=1,
+        strides=2,
         padding='same'
         )(conv1)
 
