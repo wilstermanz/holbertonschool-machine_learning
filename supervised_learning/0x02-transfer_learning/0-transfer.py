@@ -106,9 +106,8 @@ if __name__ == "__main__":
                 #     verbose=True),
                  K.callbacks.ModelCheckpoint(
                     filepath='cifar10.h5',
-                    monitor='val_loss',
+                    monitor='accuracy',
                     save_best_only=True)
                  ]
-
-    model.fit(x_train, y_train, batch_size=batch_size, epochs=epochs,
-                    validation_data=(x_valid, y_valid), callbacks=callbacks)
+    model.fit(x_train[:10000], y_train[:10000], batch_size=batch_size, epochs=epochs,
+                    validation_data=(x_valid[:500], y_valid[:500]), callbacks=callbacks)
