@@ -138,3 +138,4 @@ supervised_learning/0x01-optimization/graph.ckpt.index
 supervised_learning/0x01-optimization/graph.ckpt.meta
 supervised_learning/data/*
 supervised_learning/.vscode/settings.json
+supervised_learning/0x00-object_detection/detections/*
