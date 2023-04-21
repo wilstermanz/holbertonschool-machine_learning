@@ -1,6 +1,8 @@
 #!/usr/bin/env python3
 """Task 4"""
+import cv2
 import numpy as np
+import os
 import tensorflow as tf
 
 
