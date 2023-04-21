@@ -321,3 +321,69 @@ class Yolo:
             image_shapes.append(image.shape[0:2])
 
         return np.array(pimages), np.array(image_shapes)
+
+    def show_boxes(self, image, boxes, box_classes, box_scores, file_name):
+        """
+        image: a numpy.ndarray containing an unprocessed image
+        boxes: a numpy.ndarray containing the boundary boxes for the image
+        box_classes: a numpy.ndarray containing the class indices for each box
+        box_scores: a numpy.ndarray containing the box scores for each box
+        file_name: the file path where the original image is stored
+        Displays the image with all boundary boxes, class names, and box
+          scores (see example below)
+            Boxes should be drawn as with a blue line of thickness 2
+            Class names and box scores should be drawn above each box in red
+                Box scores should be rounded to 2 decimal places
+                Text should be written 5 pixels above the top left corner of
+                  the box
+                Text should be written in FONT_HERSHEY_SIMPLEX
+                Font scale should be 0.5
+                Line thickness should be 1
+                You should use LINE_AA as the line type
+            The window name should be the same as file_name
+            If the s key is pressed:
+                The image should be saved in the directory detections, located
+                  in the current directory
+                If detections does not exist, create it
+                The saved image should have the file name file_name
+                The image window should be closed
+            If any key besides s is pressed, the image window should be closed
+              without saving
+        """
+        for i, box in enumerate(boxes):
+
+            # unpack box coordinates
+            x1, y1, x2, y2 = box.astype(int)
+
+            # create rectangle
+            cv2.rectangle(img=image,
+                          pt1=(x1, y1),
+                          pt2=(x2, y2),
+                          color=(255, 0, 0),
+                          thickness=2)
+
+            # add label
+            cv2.putText(img=image,
+                        text='{} {:.2f}'.format(
+                            self.class_names[box_classes[i]], box_scores[i]),
+                        org=(x1, y1 - 5),
+                        fontFace=cv2.FONT_HERSHEY_SIMPLEX,
+                        fontScale=0.5,
+                        color=(0, 0, 255),
+                        thickness=1,
+                        lineType=cv2.LINE_AA)
+
+        # show image
+        cv2.imshow(file_name, image)
+
+        # wait for key press
+        key = cv2.waitKey(0)
+
+        # if 's' key is pressed, add image to 'detections' directory
+        if key == ord('s'):
+            if not os.path.exists('detections'):
+                os.makedirs('detections')
+            cv2.imwrite(os.path.join('detections', file_name), image)
+
+        # close image
+        cv2.destroyAllWindows()
