@@ -311,7 +311,6 @@ class Yolo:
         dsize = (self.model.input.shape[1].value,
                  self.model.input.shape[2].value)
         pimages, image_shapes = [], []
-        print(dsize)
         for image in images:
             pimages.append(cv2.resize(image,
                                       dsize=dsize,
