@@ -4,7 +4,7 @@ if __name__ == '__main__':
     definiteness = __import__('5-definiteness').definiteness
     import numpy as np
 
-    mat1 = np.array([[5, 1], [1, 1]])
+    mat1 = np.array([[0, 0], [0, 0]])
     mat2 = np.array([[2, 4], [4, 8]])
     mat3 = np.array([[-1, 1], [1, -1]])
     mat4 = np.array([[-2, 4], [4, -9]])
