@@ -20,8 +20,7 @@ def definiteness(matrix):
     """
     if type(matrix) is not np.ndarray:
         raise TypeError('matrix must be a numpy.ndarray')
-    if len(matrix.shape) == 2 and matrix.shape[0] == matrix.shape[1] \
-            and np.array_equal(matrix, matrix.T):
+    if len(matrix.shape) == 2 and np.array_equal(matrix, matrix.T):
         eigs = np.linalg.eigvals(matrix)
         if np.all(eigs > 0):
             return "Positive definite"
