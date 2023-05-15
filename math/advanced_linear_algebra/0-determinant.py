@@ -21,7 +21,7 @@ def determinant(matrix):
         if type(matrix[i]) is not list:
             raise TypeError('matrix must be a list of lists')
         if len(matrix[i]) != len(matrix):
-            raise TypeError('matrix must be a square matrix')
+            raise ValueError('matrix must be a square matrix')
 
     # determinant for 1x1 matrix
     if len(matrix) == 1:
