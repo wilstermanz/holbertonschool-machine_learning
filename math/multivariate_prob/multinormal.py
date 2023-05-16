@@ -22,6 +22,7 @@ class MultiNormal:
         if data.shape[1] < 2:
             raise ValueError('data must contain multiple data points')
 
+        self.d = data.shape[0]
         self.mean = np.expand_dims(np.mean(data, axis=1), axis=1)
         self.cov = np.matmul((data - self.mean), (data - self.mean).T) \
             / (data.shape[1] - 1)
@@ -41,9 +42,9 @@ class MultiNormal:
         """
         if type(x) is not np.ndarray:
             raise TypeError('x must be a numpy.ndarray')
-        if len(x.shape) != 2 or x.shape[1] != 1:
+        if len(x.shape) != 2 or x.shape[0] != self.d or x.shape[1] != 1:
             raise ValueError(
-                'x must have the shape ({}, 1)'.format(x.shape[0]))
+                'x must have the shape ({}, 1)'.format(self.d))
 
         p1 = (2 * np.pi) ** (-x.shape[0] / 2)
         p2 = np.linalg.det(self.cov) ** (-0.5)
