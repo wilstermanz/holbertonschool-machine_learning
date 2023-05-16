@@ -50,4 +50,4 @@ class MultiNormal:
         p3 = np.matmul((x - self.mean).T, np.linalg.inv(self.cov))
         pdf = p1 * p2 * np.exp(-0.5 * np.matmul(p3, (x - self.mean)))
 
-        return pdf
+        return np.squeeze(pdf)
