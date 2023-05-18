@@ -37,6 +37,6 @@ def likelihood(x, n, P):
     if np.where(P < 0)[0].size > 0 or np.where(P > 1)[0].size > 0:
         raise ValueError('All values in P must be in the range [0, 1]')
 
-    combined = np.math.factorial(n) / (
+    bincoef = np.math.factorial(n) / (
         np.math.factorial(x) * np.math.factorial(n - x))
-    return combined * (P ** x) * ((1 - P) ** (n - x))
+    return bincoef * (P ** x) * ((1 - P) ** (n - x))
