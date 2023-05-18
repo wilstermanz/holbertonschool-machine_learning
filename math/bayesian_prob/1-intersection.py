@@ -55,9 +55,9 @@ def intersection(x, n, P, Pr):
     bincoef = np.math.factorial(n) / (
         np.math.factorial(x) * np.math.factorial(n - x))
     likelihood = bincoef * (P ** x) * ((1 - P) ** (n - x))
-    interesection = likelihood * Pr
+    intersection = likelihood * Pr
 
-    return interesection
+    return intersection
 
 
 if __name__ == '__main__':
