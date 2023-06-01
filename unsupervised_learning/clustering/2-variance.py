@@ -16,7 +16,7 @@ def variance(X, C):
     """
     if type(X) is not np.ndarray or X.ndim != 2:
         return None
-    if type(C) is not np.ndarray or X.ndim != 2:
+    if type(C) is not np.ndarray or C.ndim != 2:
         return None
     if X.shape[1] != C.shape[1]:
         return None
