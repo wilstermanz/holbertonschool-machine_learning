@@ -1,6 +1,6 @@
 #!/usr/bin/env python3
-import numpy as np
 """Task 0"""
+import numpy as np
 
 
 def pca(X, var=0.95):
@@ -34,6 +34,7 @@ def pca(X, var=0.95):
 
 
 if __name__ == "__main__":
+    """Test file"""
     np.random.seed(0)
     a = np.random.normal(size=50)
     b = np.random.normal(size=50)
