@@ -18,7 +18,6 @@ def initialize(X, k):
         each cluster, initialized with K-means
         S is a numpy.ndarray of shape (k, d, d) containing the covariance
         matrices for each cluster, initialized as identity matrices
-    You should use kmeans = __import__('1-kmeans').kmeans
     """
 
     if type(k) is not int or k < 1:
