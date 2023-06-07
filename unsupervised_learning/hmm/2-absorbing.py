@@ -25,7 +25,7 @@ def absorbing(P):
     n = len(np.where(np.diagonal(P) == 1)[0])
     B = P[n + 1:, n + 1:]
     In = np.identity(len(B))
-    F = np.lingalg.inv(In - P[n + 1:, n + 1:])
+    F = np.linalg.inv(In - P[n + 1:, n + 1:])
     A = P[n + 1:, :n + 1]
     FA = F @ A
 
