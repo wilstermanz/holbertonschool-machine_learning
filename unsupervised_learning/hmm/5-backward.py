@@ -1,4 +1,4 @@
-#!/usr/bin/env
+#!/usr/bin/env python3
 """Task 5 - The Backward Algorithm"""
 import numpy as np
 
