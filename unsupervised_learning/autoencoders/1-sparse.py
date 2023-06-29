@@ -22,7 +22,7 @@ def autoencoder(input_dims, hidden_layers, latent_dims, lambtha):
     All layers should use a relu activation except for the last layer in the
     decoder, which should use sigmoid
     """
-    reg = keras.regularizers.L1(lambtha)
+    reg = keras.regularizers.l1(lambtha)
 
     # encoder
     input_img = keras.Input(shape=(input_dims,))
