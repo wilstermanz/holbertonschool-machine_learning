@@ -68,12 +68,15 @@ def autoencoder(input_dims, hidden_layers, latent_dims):
     def vae_loss(input_img, output):
         # compute the average MSE error, then scale it up i.e. simply sum on
         # all axes
-        reconstruction_loss = keras.sum(keras.square(output-input_img))
+        reconstruction_loss = keras.backend.sum(
+            keras.backend.square(output-input_img))
         # compute the KL loss
-        kl_loss = -0.5 * keras.sum(1 + latent_log_var - keras.square(
-            latent_mean) - keras.square(keras.exp(latent_log_var)), axis=-1)
+        kl_loss = -0.5 * keras.backend.sum(
+            1 + latent_log_var - keras.backend.square(
+                latent_mean) - keras.backend.square(
+                    keras.backend.exp(latent_log_var)), axis=-1)
         # return the average loss over all images in batch
-        total_loss = keras.mean(reconstruction_loss + kl_loss)
+        total_loss = keras.backend.mean(reconstruction_loss + kl_loss)
         return total_loss
 
     auto.compile(optimizer='adam', loss=vae_loss)
