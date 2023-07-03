@@ -65,16 +65,17 @@ def autoencoder(input_dims, hidden_layers, latent_dims):
     decoded_output = decoder(encoded_output[0])
     auto = keras.Model(encoder_input, decoded_output)
 
-    def VAE_loss(inputs, outputs):
-        """ Custom loss function including a KL divergence term. """
-        reconstruction_loss = keras.losses.binary_crossentropy(inputs, outputs)
-        reconstruction_loss *= input_dims
-        KL_loss = 1 + latent_log_var - keras.backend.square(latent_mean) \
-            - keras.backend.exp(latent_log_var)
-        KL_loss = keras.backend.sum(KL_loss, axis=-1) * -0.5
-        total_loss = keras.backend.mean(reconstruction_loss + KL_loss)
+    def vae_loss(input_img, output):
+        # compute the average MSE error, then scale it up i.e. simply sum on
+        # all axes
+        reconstruction_loss = keras.sum(keras.square(output-input_img))
+        # compute the KL loss
+        kl_loss = -0.5 * keras.sum(1 + latent_log_var - keras.square(
+            latent_mean) - keras.square(keras.exp(latent_log_var)), axis=-1)
+        # return the average loss over all images in batch
+        total_loss = keras.mean(reconstruction_loss + kl_loss)
         return total_loss
 
-    auto.compile(optimizer='adam', loss=VAE_loss)
+    auto.compile(optimizer='adam', loss=vae_loss)
 
     return encoder, decoder, auto
