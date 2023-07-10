@@ -6,7 +6,7 @@ import torch.nn as nn
 import torch.optim as optim
 
 
-def sample_Z(mu, sigma, sampleType):
+def sample_Z(mu, sigma, sampleType, size=(1, 1)):
     """
     creates input for the generator and discriminator:
 
@@ -21,18 +21,10 @@ def sample_Z(mu, sigma, sampleType):
     discriminator if the parameters are correct.
         It should return 0 otherwise.
     """
-    if type(mu) in (float, int):
-        size = 1
-    else:
-        size = len(mu)
-
     if sampleType == 'G':
-        normal = np.random.normal(mu, sigma)
-        return torch.from_numpy(normal) if size > 1 else torch.normal(
-            mu, sigma, (1, 1))
+        return torch.normal(mu, sigma, size)
 
     if sampleType == 'D':
-        rand = np.random.randn(size)
-        return torch.from_numpy(rand) if size > 1 else torch.randn(size)
+        return torch.randn(size)
 
     return 0
