@@ -54,14 +54,14 @@ class GRUCell:
         def sigmoid(x):
             return 1 / (1 + np.exp(-x))
 
-        h_prev_x_t = np.concatenate((h_prev, x_t), axis=1)
+        x_t_h_prev = np.concatenate((x_t, h_prev), axis=1)
 
         # reset gate
-        reset_activation = sigmoid((h_prev_x_t @ self.Wr) + self.br)
+        reset_activation = sigmoid((x_t_h_prev @ self.Wr) + self.br)
         reset_out = reset_activation * h_prev
 
         # update gate
-        update_activation = sigmoid((h_prev_x_t @ self.Wz) + self.bz)
+        update_activation = sigmoid((x_t_h_prev @ self.Wz) + self.bz)
         update_out = h_prev * (1 - update_activation)
 
         # intermediate hidden state
