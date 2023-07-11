@@ -47,7 +47,7 @@ class RNNCell:
 
         Whh = self.Wh[:h_prev.shape[1], :]
         Wxh = self.Wh[h_prev.shape[1]:, :]
-        h_t = np.tanh((Whh @ h_prev) + (Wxh @ x_t) + self.bh)
-        y_t = (self.Wy @ h_t) + self.by
+        h_t = np.tanh((h_prev @ Whh) + (x_t @ Wxh) + self.bh)
+        y_t = (h_t @ self.Wy) + self.by
 
         return h_t, softmax(y_t)
