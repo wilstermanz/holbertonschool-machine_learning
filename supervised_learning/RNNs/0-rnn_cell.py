@@ -43,7 +43,9 @@ class RNNCell:
             y: the output of the cell
         """
         def softmax(x):
-            return np.exp(x - np.max(x)) / np.exp(x - np.max(x)).sum()
+            max = np.max(x, axis=1, keepdims=True)
+            return np.exp(x - max) / np.sum(
+                np.exp(x - max), axis=1, keepdims=True)
 
         Whh = self.Wh[:h_prev.shape[1], :]
         Wxh = self.Wh[h_prev.shape[1]:, :]
