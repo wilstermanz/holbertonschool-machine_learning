@@ -67,8 +67,7 @@ class GRUCell:
         # intermediate hidden state
         hidden_activation = np.tanh(
             (np.concatenate((reset_out, x_t), axis=1) @ self.Wh) + self.bh)
-        h_next = (hidden_activation * update_activation) +\
-            (update_out)
+        h_next = (hidden_activation * update_activation) + update_out
 
         y = softmax((h_next @ self.Wy) + self.by)
 
