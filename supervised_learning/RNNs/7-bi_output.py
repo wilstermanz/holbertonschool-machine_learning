@@ -69,8 +69,8 @@ class BidirectionalCell:
         Returns: Y, the outputs
         """
         def softmax(x):
-            max = np.max(x, axis=1, keepdims=True)
+            max = np.max(x, axis=2, keepdims=True)
             return np.exp(x - max) / np.sum(
-                np.exp(x - max), axis=1, keepdims=True)
+                np.exp(x - max), axis=2, keepdims=True)
 
         return softmax((H @ self.Wy) + self.by)
