@@ -19,22 +19,30 @@ def deep_rnn(rnn_cells, X, h_0):
         H is a numpy.ndarray containing all of the hidden states
         Y is a numpy.ndarray containing all of the outputs
     """
-    H = []
-    Y = []
-    H.append(h_0)
+    # get some dimensions
+    t, m, _ = X.shape
+    layers, _, h = h_0.shape
 
-    for l, rnn_cell in enumerate(rnn_cells):
-        print(l)
-        h_t = H[l].copy()
+    # Initialize H and Y with zeroes
+    H = np.zeros((t+1, layers, m, h))
+    Y = np.zeros((t, m, rnn_cells[-1].Wy.shape[1]))
 
-        for data in X:
-            if l == 0:
-                h_t[l], y_t = rnn_cell.forward(h_t[l], data)
-            else:
-                h_t[l], y_t = rnn_cell.forward(h_t[l], h_t[l - 1])
+    H[0] = h_0
+    for step, data in enumerate(X, start=1):
+        # forward prop first cell to initialize h_t and y_t
+        h_t, y_t = rnn_cells[0].forward(H[step - 1, 0], data)
+        H[step, 0] = h_t
 
-        H.append(h_t.copy())
+        # forward prop remaining cells
+        for layer, rnn_cell in enumerate(rnn_cells[1:], start=1):
+            # h_prev is hidden state from previous step
+            # x_t is h_t from previous layer
+            h_t, y_t = rnn_cell.forward(H[step - 1, layer], h_t)
 
-    Y.append(y_t)
+            # Update H for current step and layer
+            H[step, layer] = h_t
 
-    return np.stack(H), np.stack(Y)
+        # Update Y
+        Y[step - 1] = y_t
+
+    return H, Y
