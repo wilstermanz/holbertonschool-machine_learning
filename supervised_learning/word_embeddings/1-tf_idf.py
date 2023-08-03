@@ -17,7 +17,6 @@ def tf_idf(sentences, vocab=None):
         features is a list of the features used for embeddings
     """
     vectorizer = TfidfVectorizer(vocabulary=vocab)
-    print(dir(vectorizer))
     vectorized = vectorizer.fit_transform(sentences)
     embeddings = vectorized.toarray()
     features = vectorizer.get_feature_names()
