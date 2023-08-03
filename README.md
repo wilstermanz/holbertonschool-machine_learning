@@ -25,7 +25,7 @@
 <!-- PROJECT LOGO -->
 <br />
 <div align="center">
-  <a href="[https://github.com/wilstermanz/holbertonschool-machine_learning](https://commons.wikimedia.org/wiki/File:Supervised_and_unsupervised_machine_learning.webp)">
+  <a href="https://commons.wikimedia.org/wiki/File:Supervised_and_unsupervised_machine_learning.webp">
     <img src="https://upload.wikimedia.org/wikipedia/commons/b/b8/Supervised_and_unsupervised_machine_learning.webp" alt="Logo" width="80%">
   </a>
 
