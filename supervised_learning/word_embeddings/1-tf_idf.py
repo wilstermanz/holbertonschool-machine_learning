@@ -1,10 +1,6 @@
 #!/usr/bin/env python3
 """task 1"""
-import nltk
-from nltk.tokenize import word_tokenize as tokenize
 from sklearn.feature_extraction.text import TfidfVectorizer
-
-nltk.download('punkt', quiet=True)
 
 
 def tf_idf(sentences, vocab=None):
