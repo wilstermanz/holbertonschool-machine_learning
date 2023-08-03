@@ -130,7 +130,7 @@ This reposistory can be cloned locally. Test files for each task are usually inc
 
 Jupyter notebooks are included to follow along for some projects.
 
-_For more examples, please refer to the each projects specific documentation_
+_For more examples, please refer to the each project's specific documentation_
 
 <p align="right">(<a href="#readme-top">back to top</a>)</p>
 
