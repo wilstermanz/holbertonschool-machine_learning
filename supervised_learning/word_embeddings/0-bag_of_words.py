@@ -6,6 +6,7 @@ from sklearn.feature_extraction.text import CountVectorizer
 
 nltk.download('punkt', quiet=True)
 
+
 def bag_of_words(sentences, vocab=None):
     """
     creates a bag of words embedding matrix:
@@ -28,7 +29,7 @@ def bag_of_words(sentences, vocab=None):
             if token.isalpha():
                 words += token.lower() + ' '
         corpus.append(words)
-    
+
     if not vocab:
         vocab = []
         for sentence in corpus:
@@ -36,7 +37,7 @@ def bag_of_words(sentences, vocab=None):
                 vocab.append(token)
         vocab = list(set(vocab))
         vocab.sort()
-    
+
     vectorizer = CountVectorizer(vocabulary=vocab)
     embeddings = vectorizer.fit_transform(corpus).toarray()
 
