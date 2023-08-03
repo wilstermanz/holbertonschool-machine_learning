@@ -4,7 +4,7 @@ import nltk
 from nltk.tokenize import word_tokenize as tokenize
 from sklearn.feature_extraction.text import CountVectorizer
 
-nltk.download('punkt')
+nltk.download('punkt', quiet=True)
 
 def bag_of_words(sentences, vocab=None):
     """
