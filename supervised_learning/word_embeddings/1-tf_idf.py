@@ -20,6 +20,6 @@ def tf_idf(sentences, vocab=None):
     print(dir(vectorizer))
     vectorized = vectorizer.fit_transform(sentences)
     embeddings = vectorized.toarray()
-    features = vectorizer.get_feature_names_out()
+    features = vectorizer.get_feature_names()
 
     return embeddings, features
