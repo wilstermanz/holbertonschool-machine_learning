@@ -56,6 +56,6 @@ def cumulative_bleu(references, sentence, N):
         Pn.append(np.sum(list(max_ref_count.values())) / np.sum(
             list(count_ngrams(sentence, ngrams, n).values())))
 
-    bleu = BP * np.exp(np.sum(np.log(Pn)) / N)
+    bleu = BP * np.exp(np.sum((1/N) * np.log(Pn)))
 
     return bleu
