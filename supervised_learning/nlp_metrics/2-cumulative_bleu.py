@@ -41,7 +41,7 @@ def cumulative_bleu(references, sentence, N):
     Pn = []
     for n in range(1, N + 1):
         ngrams = make_ngrams(sentence, n)
-    
+
         c = len(sentence)
         r = min([len(reference) for reference in references])
         BP = 1 if c > r else np.exp(1 - (r / c))
@@ -51,7 +51,7 @@ def cumulative_bleu(references, sentence, N):
             ngram_count = count_ngrams(reference, ngrams, n)
             for ngram in ngrams:
                 max_ref_count[ngram] = max(ngram_count[ngram],
-                                        max_ref_count[ngram])
+                                           max_ref_count[ngram])
 
         Pn.append(np.sum(list(max_ref_count.values())) / np.sum(
             list(count_ngrams(sentence, ngrams, n).values())))
