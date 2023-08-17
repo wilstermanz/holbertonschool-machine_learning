@@ -162,6 +162,7 @@ _For more examples, please refer to the each project's specific documentation_
     - [Word Embeddings](https://github.com/wilstermanz/holbertonschool-machine_learning/tree/main/supervised_learning/word_embeddings)
     - [NLP Metrics](https://github.com/wilstermanz/holbertonschool-machine_learning/tree/main/supervised_learning/nlp_metrics)
     - [Transformer Applications](https://github.com/wilstermanz/holbertonschool-machine_learning/tree/main/supervised_learning/transformer_apps)
+    - [QA Bot](https://github.com/wilstermanz/holbertonschool-machine_learning/tree/main/supervised_learning/qa_bot)
 - [Unsupervised Learning](https://github.com/wilstermanz/holbertonschool-machine_learning/tree/main/unsupervised_learning)
     - [Generative Adversarial Networks](https://github.com/wilstermanz/holbertonschool-machine_learning/tree/main/unsupervised_learning/0x05-GANs)
     - [Autoencoders](https://github.com/wilstermanz/holbertonschool-machine_learning/tree/main/unsupervised_learning/autoencoders)
