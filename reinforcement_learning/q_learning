@@ -1,0 +1,479 @@
+{
+  "nbformat": 4,
+  "nbformat_minor": 0,
+  "metadata": {
+    "colab": {
+      "provenance": [],
+      "authorship_tag": "ABX9TyPZl1XVm4sQgeSH1H2zqIlt",
+      "include_colab_link": true
+    },
+    "kernelspec": {
+      "name": "python3",
+      "display_name": "Python 3"
+    },
+    "language_info": {
+      "name": "python"
+    }
+  },
+  "cells": [
+    {
+      "cell_type": "markdown",
+      "metadata": {
+        "id": "view-in-github",
+        "colab_type": "text"
+      },
+      "source": [
+        "<a href=\"https://colab.research.google.com/github/wilstermanz/holbertonschool-machine_learning/blob/main/reinforcement_learning/q_learning\" target=\"_parent\"><img src=\"https://colab.research.google.com/assets/colab-badge.svg\" alt=\"Open In Colab\"/></a>"
+      ]
+    },
+    {
+      "cell_type": "code",
+      "source": [
+        "import gym\n",
+        "import numpy as np"
+      ],
+      "metadata": {
+        "id": "D7YNz2mKbTIG"
+      },
+      "execution_count": 1,
+      "outputs": []
+    },
+    {
+      "cell_type": "markdown",
+      "source": [
+        "# 0. Load the Environment\n",
+        "\n",
+        "Write a function ```def load_frozen_lake(desc=None, map_name=None, is_slippery=False):``` that loads the pre-made FrozenLakeEnv evnironment from OpenAI's gym:\n",
+        "\n",
+        "    desc is either None or a list of lists containing a custom description of the map to load for the environment\n",
+        "    map_name is either None or a string containing the pre-made map to load\n",
+        "    Note: If both desc and map_name are None, the environment will load a randomly generated 8x8 map\n",
+        "    is_slippery is a boolean to determine if the ice is slippery\n",
+        "    Returns: the environment\n"
+      ],
+      "metadata": {
+        "id": "ZL9hRB9obJCR"
+      }
+    },
+    {
+      "cell_type": "code",
+      "source": [
+        "def load_frozen_lake(desc=None, map_name=None, is_slippery=False):\n",
+        "    return gym.make('FrozenLake-v1', desc=desc, map_name=map_name,\n",
+        "                    is_slippery=is_slippery, render_mode='ansi')"
+      ],
+      "metadata": {
+        "id": "N2UILq6NbIms"
+      },
+      "execution_count": 74,
+      "outputs": []
+    },
+    {
+      "cell_type": "code",
+      "execution_count": 70,
+      "metadata": {
+        "colab": {
+          "base_uri": "https://localhost:8080/"
+        },
+        "id": "yzV2Nmv0bGrJ",
+        "outputId": "2068263e-833a-4335-8a26-6353bc7d99f0"
+      },
+      "outputs": [
+        {
+          "output_type": "stream",
+          "name": "stdout",
+          "text": [
+            "[[b'S' b'F' b'F' b'F' b'F' b'F' b'F' b'H']\n",
+            " [b'H' b'F' b'F' b'F' b'F' b'H' b'F' b'F']\n",
+            " [b'F' b'H' b'F' b'H' b'H' b'F' b'F' b'F']\n",
+            " [b'F' b'F' b'F' b'H' b'F' b'F' b'F' b'F']\n",
+            " [b'F' b'F' b'F' b'F' b'F' b'F' b'H' b'F']\n",
+            " [b'F' b'F' b'F' b'F' b'F' b'F' b'F' b'F']\n",
+            " [b'F' b'F' b'F' b'F' b'H' b'F' b'F' b'F']\n",
+            " [b'F' b'F' b'F' b'F' b'F' b'F' b'F' b'G']]\n",
+            "[(1.0, 0, 0.0, False)]\n",
+            "[[b'S' b'F' b'H' b'F' b'H' b'F' b'H' b'F']\n",
+            " [b'H' b'F' b'F' b'F' b'F' b'F' b'F' b'F']\n",
+            " [b'F' b'F' b'F' b'F' b'F' b'F' b'F' b'F']\n",
+            " [b'F' b'H' b'F' b'F' b'F' b'F' b'F' b'F']\n",
+            " [b'F' b'F' b'H' b'F' b'F' b'F' b'F' b'H']\n",
+            " [b'F' b'F' b'F' b'F' b'F' b'H' b'F' b'H']\n",
+            " [b'F' b'F' b'H' b'F' b'H' b'F' b'H' b'F']\n",
+            " [b'F' b'F' b'H' b'F' b'F' b'F' b'F' b'G']]\n",
+            "[(0.3333333333333333, 0, 0.0, False), (0.3333333333333333, 0, 0.0, False), (0.3333333333333333, 8, 0.0, True)]\n",
+            "[[b'S' b'F' b'F']\n",
+            " [b'F' b'H' b'H']\n",
+            " [b'F' b'F' b'G']]\n",
+            "[[b'S' b'F' b'F' b'F']\n",
+            " [b'F' b'H' b'F' b'H']\n",
+            " [b'F' b'F' b'F' b'H']\n",
+            " [b'H' b'F' b'F' b'G']]\n"
+          ]
+        }
+      ],
+      "source": [
+        "np.random.seed(0)\n",
+        "env = load_frozen_lake()\n",
+        "print(env.desc)\n",
+        "print(env.P[0][0])\n",
+        "env = load_frozen_lake(is_slippery=True)\n",
+        "print(env.desc)\n",
+        "print(env.P[0][0])\n",
+        "desc = [['S', 'F', 'F'], ['F', 'H', 'H'], ['F', 'F', 'G']]\n",
+        "env = load_frozen_lake(desc=desc)\n",
+        "print(env.desc)\n",
+        "env = load_frozen_lake(map_name='4x4')\n",
+        "print(env.desc)"
+      ]
+    },
+    {
+      "cell_type": "markdown",
+      "source": [
+        "# 1. Initialize Q-table\n",
+        "\n",
+        "Write a function ```def q_init(env):``` that initializes the Q-table:\n",
+        "\n",
+        "    env is the FrozenLakeEnv instance\n",
+        "    Returns: the Q-table as a numpy.ndarray of zeros\n"
+      ],
+      "metadata": {
+        "id": "VQkWliGid_06"
+      }
+    },
+    {
+      "cell_type": "code",
+      "source": [
+        "def q_init(env):\n",
+        "    return np.zeros((env.observation_space.n, env.action_space.n))"
+      ],
+      "metadata": {
+        "id": "eGB3gNqed0Ta"
+      },
+      "execution_count": 61,
+      "outputs": []
+    },
+    {
+      "cell_type": "code",
+      "source": [
+        "env = load_frozen_lake()\n",
+        "Q = q_init(env)\n",
+        "print(Q.shape)\n",
+        "env = load_frozen_lake(is_slippery=True)\n",
+        "Q = q_init(env)\n",
+        "print(Q.shape)\n",
+        "desc = [['S', 'F', 'F'], ['F', 'H', 'H'], ['F', 'F', 'G']]\n",
+        "env = load_frozen_lake(desc=desc)\n",
+        "Q = q_init(env)\n",
+        "print(Q.shape)\n",
+        "env = load_frozen_lake(map_name='4x4')\n",
+        "Q = q_init(env)\n",
+        "print(Q.shape)"
+      ],
+      "metadata": {
+        "colab": {
+          "base_uri": "https://localhost:8080/"
+        },
+        "id": "X0HYyZhShESW",
+        "outputId": "3394fce7-1c82-4f1a-fa8e-6891a8b0bb4e"
+      },
+      "execution_count": 62,
+      "outputs": [
+        {
+          "output_type": "stream",
+          "name": "stdout",
+          "text": [
+            "(64, 4)\n",
+            "(64, 4)\n",
+            "(9, 4)\n",
+            "(16, 4)\n"
+          ]
+        }
+      ]
+    },
+    {
+      "cell_type": "markdown",
+      "source": [
+        "# 2. Epsilon Greedy\n",
+        "\n",
+        "Write a function ```def epsilon_greedy(Q, state, epsilon):``` that uses epsilon-greedy to determine the next action:\n",
+        "\n",
+        "    Q is a numpy.ndarray containing the q-table\n",
+        "    state is the current state\n",
+        "    epsilon is the epsilon to use for the calculation\n",
+        "    You should sample p with numpy.random.uniform to determine if your algorithm should explore or exploit\n",
+        "    If exploring, you should pick the next action with numpy.random.randint from all possible actions\n",
+        "    Returns: the next action index\n"
+      ],
+      "metadata": {
+        "id": "pqomjrqni5M2"
+      }
+    },
+    {
+      "cell_type": "code",
+      "source": [
+        "def epsilon_greedy(Q, state, epsilon):\n",
+        "    # exploration\n",
+        "    if np.random.uniform() < epsilon:\n",
+        "        return np.random.choice(Q.shape[1])\n",
+        "    # exploitation\n",
+        "    else:\n",
+        "        return np.argmax(Q[state, :])"
+      ],
+      "metadata": {
+        "id": "CeuGCDfti408"
+      },
+      "execution_count": 63,
+      "outputs": []
+    },
+    {
+      "cell_type": "code",
+      "source": [
+        "desc = [['S', 'F', 'F'], ['F', 'H', 'H'], ['F', 'F', 'G']]\n",
+        "env = load_frozen_lake(desc=desc)\n",
+        "Q = q_init(env)\n",
+        "Q[7] = np.array([0.5, 0.7, 1, -1])\n",
+        "np.random.seed(0)\n",
+        "print(epsilon_greedy(Q, 7, 0.5))\n",
+        "np.random.seed(1)\n",
+        "print(epsilon_greedy(Q, 7, 0.5))"
+      ],
+      "metadata": {
+        "colab": {
+          "base_uri": "https://localhost:8080/"
+        },
+        "id": "nS9kC99UkyXi",
+        "outputId": "6b50f8d9-5396-4c2d-f7a4-ff3eb5d2bf6a"
+      },
+      "execution_count": 64,
+      "outputs": [
+        {
+          "output_type": "stream",
+          "name": "stdout",
+          "text": [
+            "2\n",
+            "0\n"
+          ]
+        }
+      ]
+    },
+    {
+      "cell_type": "markdown",
+      "source": [
+        "# 3. Q-learning\n",
+        "\n",
+        "Write the function ```def train(env, Q, episodes=5000, max_steps=100, alpha=0.1, gamma=0.99, epsilon=1, min_epsilon=0.1, epsilon_decay=0.05):``` that performs Q-learning:\n",
+        "\n",
+        "    env is the FrozenLakeEnv instance\n",
+        "    Q is a numpy.ndarray containing the Q-table\n",
+        "    episodes is the total number of episodes to train over\n",
+        "    max_steps is the maximum number of steps per episode\n",
+        "    alpha is the learning rate\n",
+        "    gamma is the discount rate\n",
+        "    epsilon is the initial threshold for epsilon greedy\n",
+        "    min_epsilon is the minimum value that epsilon should decay to\n",
+        "    epsilon_decay is the decay rate for updating epsilon between episodes\n",
+        "    When the agent falls in a hole, the reward should be updated to be -1\n",
+        "    Returns: Q, total_rewards\n",
+        "        Q is the updated Q-table\n",
+        "        total_rewards is a list containing the rewards per episode\n"
+      ],
+      "metadata": {
+        "id": "x0zF43hTlqYr"
+      }
+    },
+    {
+      "cell_type": "code",
+      "source": [
+        "def train(env, Q, episodes=5000, max_steps=100, alpha=0.1, gamma=0.99,\n",
+        "          epsilon=1, min_epsilon=0.1, epsilon_decay=0.05):\n",
+        "\n",
+        "    total_rewards = []\n",
+        "    for episode in range(episodes):\n",
+        "        state = env.reset()\n",
+        "        done = False\n",
+        "        episode_rewards = 0\n",
+        "\n",
+        "        for step in range(max_steps):\n",
+        "            action = epsilon_greedy(Q, state, epsilon)\n",
+        "            new_state, reward, done, _ = env.step(action)\n",
+        "\n",
+        "            if reward == 0 and done:\n",
+        "                episode_rewards += -1\n",
+        "            else:\n",
+        "                episode_rewards += reward\n",
+        "\n",
+        "            Q[state, action] = Q[state, action] * (1 - alpha) + \\\n",
+        "                alpha * (reward + gamma * np.max(Q[new_state, :]))\n",
+        "\n",
+        "            state = new_state\n",
+        "\n",
+        "            if done:\n",
+        "                break\n",
+        "\n",
+        "        epsilon = min_epsilon + (1 - min_epsilon) * (np.exp(-epsilon_decay * episode))\n",
+        "\n",
+        "        total_rewards.append(episode_rewards)\n",
+        "\n",
+        "    return Q, total_rewards"
+      ],
+      "metadata": {
+        "id": "ivwMyYDzlpDh"
+      },
+      "execution_count": 128,
+      "outputs": []
+    },
+    {
+      "cell_type": "code",
+      "source": [
+        "np.random.seed(0)\n",
+        "desc = [['S', 'F', 'F'], ['F', 'H', 'H'], ['F', 'F', 'G']]\n",
+        "env = load_frozen_lake(desc=desc)\n",
+        "Q = q_init(env)\n",
+        "\n",
+        "Q, total_rewards  = train(env, Q)\n",
+        "print(Q)\n",
+        "split_rewards = np.split(np.array(total_rewards), 10)\n",
+        "for i, rewards in enumerate(split_rewards):\n",
+        "    print((i+1) * 500, ':', np.mean(rewards))"
+      ],
+      "metadata": {
+        "colab": {
+          "base_uri": "https://localhost:8080/"
+        },
+        "id": "suYYXU2YmA0o",
+        "outputId": "ac14c2ec-9a29-4118-e272-5f0bc24ec585"
+      },
+      "execution_count": 129,
+      "outputs": [
+        {
+          "output_type": "stream",
+          "name": "stdout",
+          "text": [
+            "[[0.96059593 0.970299   0.95098488 0.96059396]\n",
+            " [0.96059557 0.         0.0094072  0.37627228]\n",
+            " [0.18061285 0.         0.         0.        ]\n",
+            " [0.97029877 0.9801     0.         0.96059583]\n",
+            " [0.         0.         0.         0.        ]\n",
+            " [0.         0.         0.         0.        ]\n",
+            " [0.98009763 0.98009933 0.99       0.9702983 ]\n",
+            " [0.98009922 0.98999782 1.         0.        ]\n",
+            " [0.         0.         0.         0.        ]]\n",
+            "500 : 0.812\n",
+            "1000 : 0.88\n",
+            "1500 : 0.9\n",
+            "2000 : 0.9\n",
+            "2500 : 0.88\n",
+            "3000 : 0.844\n",
+            "3500 : 0.892\n",
+            "4000 : 0.896\n",
+            "4500 : 0.852\n",
+            "5000 : 0.928\n"
+          ]
+        }
+      ]
+    },
+    {
+      "cell_type": "markdown",
+      "source": [
+        "# 4. Play\n",
+        "\n",
+        "Write a function ```def play(env, Q, max_steps=100):``` that has the trained agent play an episode:\n",
+        "\n",
+        "    env is the FrozenLakeEnv instance\n",
+        "    Q is a numpy.ndarray containing the Q-table\n",
+        "    max_steps is the maximum number of steps in the episode\n",
+        "    Each state of the board should be displayed via the console\n",
+        "    You should always exploit the Q-table\n",
+        "    Returns: the total rewards for the episode\n",
+        "\n"
+      ],
+      "metadata": {
+        "id": "sBDRxNgx-1mn"
+      }
+    },
+    {
+      "cell_type": "code",
+      "source": [
+        "def play(env, Q, max_steps=100):\n",
+        "\n",
+        "    state = env.reset()\n",
+        "    episode_rewards = 0\n",
+        "\n",
+        "    def print_render(input):\n",
+        "        for line in input:\n",
+        "            print(line, end='')\n",
+        "\n",
+        "    print_render(env.render())\n",
+        "\n",
+        "\n",
+        "    for step in range(max_steps):\n",
+        "        action = np.argmax(Q[state, :])\n",
+        "        new_state, reward, done, _ = env.step(action)\n",
+        "        episode_rewards += reward\n",
+        "        state = new_state\n",
+        "\n",
+        "        print_render(env.render())\n",
+        "\n",
+        "\n",
+        "        if done:\n",
+        "            break\n",
+        "\n",
+        "    return episode_rewards"
+      ],
+      "metadata": {
+        "id": "lNPT4z3B-1Yh"
+      },
+      "execution_count": 114,
+      "outputs": []
+    },
+    {
+      "cell_type": "code",
+      "source": [
+        "np.random.seed(0)\n",
+        "desc = [['S', 'F', 'F'], ['F', 'H', 'H'], ['F', 'F', 'G']]\n",
+        "env = load_frozen_lake(desc=desc)\n",
+        "Q = q_init(env)\n",
+        "\n",
+        "Q, total_rewards  = train(env, Q)\n",
+        "print(play(env, Q))"
+      ],
+      "metadata": {
+        "colab": {
+          "base_uri": "https://localhost:8080/"
+        },
+        "id": "MVWbSpew-s_E",
+        "outputId": "2601e8ab-f041-4b12-e58f-6433787d26a6"
+      },
+      "execution_count": 115,
+      "outputs": [
+        {
+          "output_type": "stream",
+          "name": "stdout",
+          "text": [
+            "\n",
+            "\u001b[41mS\u001b[0mFF\n",
+            "FHH\n",
+            "FFG\n",
+            "  (Down)\n",
+            "SFF\n",
+            "\u001b[41mF\u001b[0mHH\n",
+            "FFG\n",
+            "  (Down)\n",
+            "SFF\n",
+            "FHH\n",
+            "\u001b[41mF\u001b[0mFG\n",
+            "  (Right)\n",
+            "SFF\n",
+            "FHH\n",
+            "F\u001b[41mF\u001b[0mG\n",
+            "  (Right)\n",
+            "SFF\n",
+            "FHH\n",
+            "FF\u001b[41mG\u001b[0m\n",
+            "1.0\n"
+          ]
+        }
+      ]
+    }
+  ]
+}
