@@ -9,22 +9,23 @@ if __name__ == '__main__':
     rocket_names = {}   # (rocket ID: rocket name)
     rockets_count = {}  # {rocket name: count}
 
+    # get all launch records from API
     launches = get(API + 'launches/').json()
     for launch in launches:
-        rocket_id = launch['rocket']
+        rocket_id = launch['rocket']    # get rocket ID for launch
 
-        # get rocket name from dictionary, else call API
+        # get rocket name from rocket_names
         try:
-            name = rocket_names[rocket_id]  # get name from dict
-            rockets_count[name] += 1        # add to count
+            name = rocket_names[rocket_id]  # get rocket name
+            rockets_count[name] += 1        # increment count
 
+        # rocket name doesn't yet exist in rocket_names
         except KeyError:
-            # get name from API
+            # get rocket info from API
             name = get(API + 'rockets/' + rocket_id).json()['name']
 
-            # add name to dict
-            rocket_names[rocket_id] = name
-            rockets_count[name] = 1         # create dict entry and set to 1
+            rocket_names[rocket_id] = name  # add ID to name dict
+            rockets_count[name] = 1         # add name to count dict
 
     # sort alphabetically into list of tuples
     rockets_count = sorted(rockets_count.items(), key=lambda d: d[0])
