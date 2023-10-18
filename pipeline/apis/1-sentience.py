@@ -14,7 +14,7 @@ def sentientPlanets():
     planets = []
 
     while True:
-        r = requests.get(api + category + "?page=" + page).json()
+        r = requests.get(api + category + "?page=".format(page)).json()
         for species in r['results']:
             classification = species['classification']
             designation = species['designation']
