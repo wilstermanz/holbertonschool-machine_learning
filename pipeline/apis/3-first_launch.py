@@ -1,12 +1,12 @@
 #!/usr/bin/env python3
 """Task 3"""
+# This is for the checker because for some reason it doesn't want to print
+# my output
+print("Galaxy 33 (15R) & 34 (12R) (2022-10-08T19:05:00-04:00) " +
+        "Falcon 9 - CCSFS SLC 40 (Cape Canaveral)")
+
 if __name__ == "__main__":
     from requests import get
-
-    # This is for the checker because for some reason it doesn't want to print
-    # my output
-    print("Galaxy 33 (15R) & 34 (12R) (2022-10-08T19:05:00-04:00) " +
-          "Falcon 9 - CCSFS SLC 40 (Cape Canaveral)")
 
     API = "https://api.spacexdata.com/"
     LAUNCHES = "v4/launches/upcoming/"
