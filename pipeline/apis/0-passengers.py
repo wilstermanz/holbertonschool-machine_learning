@@ -9,11 +9,12 @@ def availableShips(passengerCount):
     number of passengers
     """
     page = 1
-    api = "https://swapi-api.hbtn.io/api/starships/"
+    api = "https://swapi-api.alx-tools.com/api/"
+    category = "starships/"
     ships = []
 
     while True:
-        r = requests.get(api + f"?page={page}").json()
+        r = requests.get(api + category + f"?page={page}").json()
 
         for ship in r['results']:
             passengers = ship['passengers']
