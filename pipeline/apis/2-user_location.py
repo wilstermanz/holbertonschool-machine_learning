@@ -11,7 +11,7 @@ if __name__ == "__main__":
 
         # if user not found
         if r.status_code == 404:
-            print('not found')
+            print('Not found')
 
         # print remaining time if rate limit exceeded
         if r.status_code == 403:
@@ -24,6 +24,6 @@ if __name__ == "__main__":
         if r.status_code == 200:
             print(r.json()['location'])
 
-    # Print exception if incorrect URL is passed         
+    # Print exception if incorrect URL is passed
     except requests.exceptions.MissingSchema as ms:
         print(ms)
