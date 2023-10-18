@@ -4,7 +4,7 @@ if __name__ == "__main__":
     from requests import get
 
     API = "https://api.spacexdata.com/"
-    LAUNCHES = "v5/launches/upcoming/"
+    LAUNCHES = "v4/launches/upcoming/"
     ROCKETS = "v4/rockets/"
     PADS = "v4/launchpads/"
 
@@ -15,7 +15,7 @@ if __name__ == "__main__":
 
     # get launch and date
     name = launch['name']
-    date = launch['date_utc']
+    date = launch['date_local']
 
     # get rocket information
     rocket_info = get(API + ROCKETS + launch['rocket']).json()
