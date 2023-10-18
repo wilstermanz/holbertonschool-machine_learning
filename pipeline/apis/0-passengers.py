@@ -14,7 +14,7 @@ def availableShips(passengerCount):
     ships = []
 
     while True:
-        r = requests.get(api + category + "?page={}".format(page)).json()
+        r = requests.get(api + category + "?page=" + page).json()
 
         for ship in r['results']:
             passengers = ship['passengers']
