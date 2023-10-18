@@ -1,6 +1,7 @@
 #!/usr/bin/env python3
 """Task 3"""
 if __name__ == "__main__":
+    print("HELLLLOOOOOOO!!!!!")
     import requests
 
     API = "https://api.spacexdata.com/"
