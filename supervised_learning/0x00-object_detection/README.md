@@ -1,5 +1,6 @@
-
 # Object Detection
+
+![](detections/dog.jpg)
 
 ## Learning Objectives
 
