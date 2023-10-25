@@ -130,12 +130,10 @@ dmypy.json
 
 .idea/
 *.npz
-/data/
-.DS_Store
+\.DS_Store
 supervised_learning/.DS_Store
 supervised_learning/0x01-optimization/graph.ckpt.data-00000-of-00001
 supervised_learning/0x01-optimization/graph.ckpt.index
 supervised_learning/0x01-optimization/graph.ckpt.meta
-supervised_learning/data/*
 supervised_learning/.vscode/settings.json
 supervised_learning/0x00-object_detection/detections/*
