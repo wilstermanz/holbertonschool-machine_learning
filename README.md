@@ -163,6 +163,7 @@ _For more examples, please refer to the each project's specific documentation_
     - [NLP Metrics](https://github.com/wilstermanz/holbertonschool-machine_learning/tree/main/supervised_learning/nlp_metrics)
     - [Transformer Applications](https://github.com/wilstermanz/holbertonschool-machine_learning/tree/main/supervised_learning/transformer_apps)
     - [QA Bot](https://github.com/wilstermanz/holbertonschool-machine_learning/tree/main/supervised_learning/qa_bot)
+    - [Recurrent Neural Networks](https://github.com/wilstermanz/holbertonschool-machine_learning/tree/main/supervised_learning/RNNs)
 - [Unsupervised Learning](https://github.com/wilstermanz/holbertonschool-machine_learning/tree/main/unsupervised_learning)
     - [Generative Adversarial Networks](https://github.com/wilstermanz/holbertonschool-machine_learning/tree/main/unsupervised_learning/0x05-GANs)
     - [Autoencoders](https://github.com/wilstermanz/holbertonschool-machine_learning/tree/main/unsupervised_learning/autoencoders)
@@ -170,6 +171,15 @@ _For more examples, please refer to the each project's specific documentation_
     - [Dimensionality Reduction](https://github.com/wilstermanz/holbertonschool-machine_learning/tree/main/unsupervised_learning/dimensionality_reduction)
     - [Hidden Markov Models](https://github.com/wilstermanz/holbertonschool-machine_learning/tree/main/unsupervised_learning/hmm)
     - [Hyperparameter Tuning](https://github.com/wilstermanz/holbertonschool-machine_learning/tree/main/unsupervised_learning/hyperparameter_tuning)
+- [Reinforcement Learning](https://github.com/wilstermanz/holbertonschool-machine_learning/tree/main/reinforcement_learning)
+    - [Q-Learning](https://github.com/wilstermanz/holbertonschool-machine_learning/tree/main/reinforcement_learning/q_learning)
+    - [Deep Q-Learning](https://github.com/wilstermanz/holbertonschool-machine_learning/tree/main/reinforcement_learning/deep_q_learning)
+    - [Policy Gradients](https://github.com/wilstermanz/holbertonschool-machine_learning/tree/main/reinforcement_learning/policy_gradients)
+    - [Temporal Difference](https://github.com/wilstermanz/holbertonschool-machine_learning/tree/main/reinforcement_learning/temporal_difference)
+- [Pipeline](https://github.com/wilstermanz/holbertonschool-machine_learning/tree/main/pipeline)
+    - [APIs](https://github.com/wilstermanz/holbertonschool-machine_learning/tree/main/pipeline/apis)
+    - [Data Augmentation](https://github.com/wilstermanz/holbertonschool-machine_learning/tree/main/pipeline/data_augmentation)
+    - [Pandas](https://github.com/wilstermanz/holbertonschool-machine_learning/tree/main/pipeline/pandas)
 
 <p align="right">(<a href="#readme-top">back to top</a>)</p>
 
