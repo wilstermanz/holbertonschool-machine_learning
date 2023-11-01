@@ -7,6 +7,6 @@ db.school.update(
     }
   },
   {
-    multi: false
+    multi: true
   }
 ) 
